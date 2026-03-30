@@ -1,0 +1,28 @@
+services:
+
+  nats-server:
+    image: nats:latest
+    ports:
+      - "8222:8222"
+
+  gateway:
+    build: ./gateway
+    ports:
+      - ${GATEWAY_PORT}:3000
+    volumes:
+      - ./gateway/src:/usr/src/app/src
+    command: npm run start:dev
+    environment:
+      - PORT=3000
+      - NATS_SERVERS=nats://nats-server:4222
+
+  administrative-data-ms:
+    build: ./administrative-data-ms
+    volumes:
+      - ./administrative-data-ms/src:/usr/src/app/src
+    command: npm run start:dev
+    environment:
+      - PORT=3001
+      - NATS_SERVERS=nats://nats-server:4222
+      - DIRECT_URL=${DIRECT_URL_ADMINISTRATIVE_DATA_DB}
+  
