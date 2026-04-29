@@ -52,3 +52,10 @@ Git
   - Cloudinary
   - Resend
 
+# Levantamiento de la aplicación
+Una vez creado el archivo .env realizar el siguiente comando dentro de la terminal.
+Asegurarse de estar dentro del directorio raíz donde fue clonado este repositorio:
+```
+docker compose up --build
+```
+
